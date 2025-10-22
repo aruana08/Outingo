@@ -1,5 +1,6 @@
 {
   "expo": {
+    "scheme": "outingoapp", 
     "name": "Outingo",
     "slug": "Outingo",
     "version": "1.0.0",
