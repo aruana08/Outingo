@@ -1,6 +1,6 @@
 {
   "expo": {
-    "scheme": "outingoapp", 
+    "scheme": "outingoapp",
     "name": "Outingo",
     "slug": "Outingo",
     "version": "1.0.0",
@@ -14,17 +14,27 @@
       "backgroundColor": "#ffffff"
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.aruana08.Outingo",
+      "infoPlist": {
+        "ITSAppUsesNonExemptEncryption": false
+      }
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "edgeToEdgeEnabled": true
+      "edgeToEdgeEnabled": true,
+      "package": "com.aruana08.Outingo"
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "677a2278-15b8-4f5f-ad65-df74fe7b24a7"
+      }
     }
   }
 }

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   SafeAreaView,
   ScrollView,
@@ -8,51 +8,76 @@ import {
   TouchableOpacity,
   StyleSheet,
 } from "react-native";
-import { Link } from 'expo-router';
+import { Link } from "expo-router"
+import { useUser } from "../hooks/useUser";
+
 
 export default function signup({ onBack }) {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const { register } = useUser()
+
+  const handleSignUp = async () => {
+    try {
+          await register(email, password)
+        } catch (error) {
+
+        }
+  };
+
   return (
     <SafeAreaView style={styles.safe}>
       <ScrollView contentContainerStyle={styles.signupContainer}>
-        <TouchableOpacity onPress={onBack} style={styles.backBtn}>
-          <Link href ='/' style={{ fontSize: 18 }}>← Outingo</Link>
-        </TouchableOpacity>
+        {/* FIXED BACK BUTTON */}
+        <Link href="/" asChild>
+          <TouchableOpacity style={styles.backBtn}>
+            <Text style={{ fontSize: 18 }}>← Outingo</Text>
+          </TouchableOpacity>
+        </Link>
 
         <Text style={styles.signupTitle}>Create new{"\n"}Account</Text>
-        <Link href="/login" style={styles.signupHint} asChild>
-        <Text>Already Registered? Log in here.</Text>
+
+        {/* FIXED LOGIN LINK */}
+        <Link href="/login">
+          <Text style={styles.signupHint}>Already Registered? Log in here.</Text>
         </Link>
 
         <View style={{ height: 24 }} />
 
+        {/* Name Field */}
         <View style={styles.field}>
           <Text style={styles.fieldLabel}>NAME</Text>
-          <TextInput style={styles.fieldInput} placeholder="Jiara Martins" />
+          <TextInput
+            style={styles.fieldInput}
+            placeholder="Jiara Martins"
+          />
         </View>
 
+        {/* Email Field */}
         <View style={styles.field}>
           <Text style={styles.fieldLabel}>EMAIL</Text>
           <TextInput
             style={styles.fieldInput}
             placeholder="hello@reallygreatsite.com"
             keyboardType="email-address"
+            onChangeText={setEmail}
+            value={email}
           />
         </View>
 
+        {/* Password Field */}
         <View style={styles.field}>
           <Text style={styles.fieldLabel}>PASSWORD</Text>
-          <TextInput style={styles.fieldInput} placeholder="******" secureTextEntry />
+          <TextInput
+            style={styles.fieldInput}
+            placeholder="******"
+            secureTextEntry
+            onChangeText={setPassword}
+            value={password}
+          />
         </View>
 
-        <View style={styles.field}>
-          <Text style={styles.fieldLabel}>DATE OF BIRTH</Text>
-          <TouchableOpacity style={[styles.fieldInput, styles.dateInput]}>
-            <Text style={{ color: "#666" }}>Select</Text>
-            <Text style={{ fontSize: 18 }}>📅</Text>
-          </TouchableOpacity>
-        </View>
-
-        <TouchableOpacity style={styles.signupBtn}>
+        <TouchableOpacity style={styles.signupBtn} onPress={handleSignUp}>
           <Text style={styles.signupBtnText}>sign up</Text>
         </TouchableOpacity>
 
@@ -93,11 +118,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     fontSize: 16,
   },
-  dateInput: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-  },
   signupBtn: {
     height: 56,
     backgroundColor: "#111",
@@ -113,5 +133,3 @@ const styles = StyleSheet.create({
     textTransform: "lowercase",
   },
 });
-
-
